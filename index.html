@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Record Merger — Solution Tech</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+</head>
+
+<body>
+
+  <div class="wrap">
+
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">RM</span>
+        <div>
+          <h1>Record Merger</h1>
+          <p class="tagline">Match two spreadsheets. Keep every row. Miss nothing.</p>
+        </div>
+      </div>
+      <div class="step-track" id="stepTrack">
+        <span class="step-dot active" data-step="1">1</span>
+        <span class="step-line"></span>
+        <span class="step-dot" data-step="2">2</span>
+        <span class="step-line"></span>
+        <span class="step-dot" data-step="3">3</span>
+      </div>
+    </header>
+
+    <!-- STEP 1: UPLOAD -->
+    <section class="panel" id="panelUpload">
+      <h2 class="panel-title"><span class="num">01</span> Load your two files</h2>
+      <div class="dropzones">
+
+        <div class="dropzone" id="dz1" data-slot="1">
+          <input type="file" id="file1" accept=".xlsx,.xls,.csv" hidden>
+          <div class="dz-icon">📄</div>
+          <p class="dz-label">File A</p>
+          <p class="dz-hint">e.g. Student / admission records</p>
+          <p class="dz-file" id="dz1-name">Click or drop file here</p>
+        </div>
+
+        <div class="dropzone" id="dz2" data-slot="2">
+          <input type="file" id="file2" accept=".xlsx,.xls,.csv" hidden>
+          <div class="dz-icon">📄</div>
+          <p class="dz-label">File B</p>
+          <p class="dz-hint">e.g. Quiz / result records</p>
+          <p class="dz-file" id="dz2-name">Click or drop file here</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- STEP 2: CONFIGURE -->
+    <section class="panel hidden" id="panelConfig">
+      <h2 class="panel-title"><span class="num">02</span> Pick the column that should match</h2>
+      <p class="panel-sub">Choose the field common to both files — usually email or an ID number. This is what links a
+        row in File A to a row in File B.</p>
+
+      <div class="config-grid">
+        <div class="config-col">
+          <label for="key1">Match column in File A</label>
+          <select id="key1"></select>
+          <div class="preview" id="preview1"></div>
+        </div>
+        <div class="config-col">
+          <label for="key2">Match column in File B</label>
+          <select id="key2"></select>
+          <div class="preview" id="preview2"></div>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="mergeBtn">Merge files</button>
+    </section>
+
+    <!-- STEP 3: RESULTS -->
+    <section class="panel hidden" id="panelResults">
+      <h2 class="panel-title"><span class="num">03</span> Result</h2>
+
+      <div class="stat-row">
+        <div class="stat">
+          <span class="stat-num" id="statMatched">0</span>
+          <span class="stat-label">Matched rows</span>
+        </div>
+        <div class="stat stat-warn">
+          <span class="stat-num" id="statUnmatchedA">0</span>
+          <span class="stat-label">Unmatched — File A only</span>
+        </div>
+        <div class="stat stat-warn">
+          <span class="stat-num" id="statUnmatchedB">0</span>
+          <span class="stat-label">Unmatched — File B only</span>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table id="previewTable"></table>
+      </div>
+
+      <div class="download-row">
+        <button class="btn-primary" id="downloadBtn">Download merged .xlsx</button>
+        <button class="btn-ghost" id="restartBtn">Start over</button>
+      </div>
+    </section>
+
+    <!-- PROGRAMMER / DEVELOPER FOOTER -->
+    <footer class="dev-footer">
+      <div class="dev-card">
+        <div class="dev-info">
+          <span class="dev-badge">Developer Profile</span>
+          <h3 class="dev-name">Fasanya Ayomide</h3>
+          <p class="dev-role">Software & Solution Developer</p>
+        </div>
+        <div class="dev-links">
+          <a href="mailto:fasanyaayomide2019@gmail.com" class="dev-link" title="Email">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            fasanyaayomide2019@gmail.com
+          </a>
+          <a href="tel:08120729938" class="dev-link" title="Phone">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+              </path>
+            </svg>
+            08120729938 / 07041626944
+          </a>
+          <div class="dev-socials">
+            <a href="https://wa.me/2348120729938" target="_blank" rel="noopener" class="btn-social wa">
+              WhatsApp
+            </a>
+            <a href="https://github.com/SoLuTiOnExE" target="_blank" rel="noopener" class="btn-social gh">
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
